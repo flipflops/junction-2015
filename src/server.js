@@ -38,12 +38,12 @@ app.post('/api/btn', (req, res)=> {
 
   powerSocketPower(state.on).then(
     ()=> console.log('Switched power socket'),
-    (err)=> console.error('Error switching power socket', err)
+    (err)=> console.error('Error switching power socket: ' + err)
   );
 
   lightBulbPower(state.on).then(
     () => console.log('Switched light bulb'),
-    (err) => console.error('Error switching light bulb', err)
+    (err) => console.error('Error switching light bulb: ' + err)
   );
 
   res.sendStatus(200);
