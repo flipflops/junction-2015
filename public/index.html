@@ -96,8 +96,8 @@
         //startRecording.disabled = false;
     });
 
-    var startRecording = document.getElementById('start-recording');
-    var stopRecording = document.getElementById('stop-recording');
+    //var startRecording = document.getElementById('start-recording');
+    //var stopRecording = document.getElementById('stop-recording');
     var cameraPreview = document.getElementById('camera-preview');
 
     var progressBar = document.querySelector('#progress-bar');
@@ -105,7 +105,7 @@
 
     var recordAudio, recordVideo;
     socketio.on('start-recording', function() {
-        startRecording.disabled = true;
+        //startRecording.disabled = true;
         navigator.getUserMedia({
             audio: true,
             video: true
@@ -130,15 +130,15 @@
 
             recordAudio.startRecording();
 
-            stopRecording.disabled = false;
+            //stopRecording.disabled = false;
         }, function(error) {
             alert(JSON.stringify(error));
         });
     });
 
     socketio.on('stop-recording', function() {
-        startRecording.disabled = false;
-        stopRecording.disabled = true;
+        //startRecording.disabled = false;
+        //stopRecording.disabled = true;
 
         // stop audio recorder
         recordVideoSeparately && recordAudio.stopRecording(function() {
