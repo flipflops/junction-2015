@@ -86,7 +86,7 @@ app.post('/api/btn', (req, res)=> {
 app.get('/video/:path', (req, res) => {
   const filename = path.join(process.env.PWD, req.params.path);
 
-  path.exists(filename, (exists) => {
+  fs.exists(filename, (exists) => {
     if (exists) {
       res.writeHead(200);
       fs.createReadStream(filename).pipe(res);
