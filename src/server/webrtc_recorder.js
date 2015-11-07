@@ -51,21 +51,27 @@ function merge(socket, fileName) {
     .saveToFile(mergedFile);
 }
 
+let clientSocket = { 
+  emit: () => {},
+};
+
 const client = {
   record(state) {
     shouldRecord = state;
 
     if (!shouldRecord)
     {
-      socket.emit('stop-recording');
+      clientSocket.emit('stop-recording');
     }
     else
     {
-      socket.emit('start-recording');
+      clientSocket.emit('start-recording');
     }
   },
   init(io) {
     io.sockets.on('connection', (socket) => {
+      clientSocket = socket;
+
       socket.on('message', (data) => {
         //if (!shouldRecord) {
         //  return;
