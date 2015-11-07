@@ -78,27 +78,20 @@ export function powerSocketPower(on) {
   return new Promise((resolve, reject) => {
     request.put(COMMAND_URL)
       .set('Authorization', "" + settings.AUTH_TOKEN)
-      .set('Host', '172.16.10.156:8893')
-      .set('Origin', 'http://cloud.cozify.fi:7400')
-      .set('Referer', 'http://cloud.cozify.fi:7400/')
-      .type('application/json')
-      .send({ 
-        id: POWER_SOCKET_ID,
-        type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF')
-      })
+      .set('Content-Type', 'application/json; charset=UTF-8')
+      .set('Content-Length', on ? 70 : 71)
+      .send('[{"id":"' + POWER_SOCKET_ID + '","type":"' + (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF') + '"}]')
       .end(handleResponse(resolve, reject));
   });
 }
 
 export function lightBulbPower(on) {
   return new Promise((resolve, reject) => {
-    console.log("" + settings.AUTH_TOKEN);
     request.put(COMMAND_URL)
       .set('Authorization', "" + settings.AUTH_TOKEN)
-      .send({
-        id: LIGHT_BULB_ID,
-        type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF')
-      })
+      .set('Content-Type', 'application/json; charset=UTF-8')
+      .set('Content-Length', on ? 70 : 71)
+      .send('[{"id":"' + LIGHT_BULB_ID + '","type":"' + (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF') + '"}]')
       .end(handleResponse(resolve, reject));
   });
 }
