@@ -5,7 +5,7 @@ import fs from 'fs';
 const AUTH_URL = 'https://cloud2.cozify.fi/cc/0.1/user/emaillogin';
 const REQUEST_AUTH_URL = 'https://cloud2.cozify.fi/cc/0.1/user/requestlogin';
 const COMMAND_URL = 'http://172.16.10.156:8893/cc/0.7/devices/command';
-const TOKEN_FILE = '/tmp/token';
+const TOKEN_FILE = '/tmp/cozifytoken';
 
 const POWER_SOCKET_ID = '700e3cae-83d1-11e5-a7fc-544a1686317e';
 const LIGHT_BULB_ID = '3a689bf6-84d3-11e5-b548-544a1686317e';
