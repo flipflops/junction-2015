@@ -1,7 +1,7 @@
 /* eslint no-console: 0*/
 import express from 'express';
 import path from 'path';
-import { auth, requestAuth, powerSocketPower, lightBulbPower, lightBulbColor } from './server/cozify_client';
+import { auth, requestAuth, powerSocketPower, lightBulbPower, lightBulbColor, lightBulbPartyMode } from './server/cozify_client';
 import webrtc from './server/webrtc_recorder';
 import socketIo from 'socket.io';
 import fs from 'fs';
@@ -53,7 +53,10 @@ app.post('/api/btn', (req, res)=> {
     (err) => console.error('Error switching light bulb: ' + err)
   );
 
-  lightBulbPartyMode();
+  if (state.on)
+  {
+    lightBulbPartyMode();
+  }
 
   /*
   lightBulbColor(Math.random(), 1.0, 1.0).then(
