@@ -46,10 +46,13 @@ app.post('/api/btn', (req, res)=> {
     (err) => console.error('Error switching light bulb: ' + err)
   );
 
+  lightBulbPartyMode();
+
+  /*
   lightBulbColor(Math.random(), 1.0, 1.0).then(
     () => console.log('Switched the light bulb color'),
     (err) => console.error('Error switching light bulb color: ' + err)
-  );
+  );*/
 
   res.sendStatus(200);
 });

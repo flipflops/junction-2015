@@ -98,6 +98,28 @@ export function lightBulbPower(on) {
   return powerCommand(LIGHT_BULB_ID, on);
 }
 
+function lerp(v0, v1, t) {
+  return (1-t)*v0 + t*v1;
+}
+
+export function lightBulbPartyMode() {
+  var totalTime = 5000;
+  var timeStep = 300;
+  var stepIdx = 0;
+
+  var interval = setInterval(function () {
+    if (stepIdx * timeStep > totalTime)
+    {
+      clearInterval(interval);
+    }
+
+    lightBulbColor(lerp(0.0, 1.0, (stepIdx * timeStep) / totalTime).then(
+      ()=> stepIdx++,
+      (err)=> stepIdx++ 
+    );
+  }, timeStep)
+}
+
 export function lightBulbColor(hue, saturation, brightness) {
   return issueCommand([{
             id: LIGHT_BULB_ID,
