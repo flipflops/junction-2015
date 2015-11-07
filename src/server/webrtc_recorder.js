@@ -32,9 +32,9 @@ function writeToDisk(dataURL, fileName) {
 }
 
 function merge(socket, fileName) {
-  const audioFile = path.join(__dirname, 'uploads', fileName + '.wav');
-  const videoFile = path.join(__dirname, 'uploads', fileName + '.webm');
-  const mergedFile = path.join(__dirname, 'uploads', fileName + '-merged.webm');
+  const audioFile = path.join(process.env.PWD, 'uploads', fileName + '.wav');
+  const videoFile = path.join(process.env.PWD, 'uploads', fileName + '.webm');
+  const mergedFile = path.join(process.env.PWD, 'uploads', fileName + '-merged.webm');
 
   new FFmpeg({ source: videoFile })
     .addInput(audioFile)
