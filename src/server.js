@@ -11,6 +11,7 @@ app.get('/api/btn', (req, res)=> res.send('touched: ' + state.touched));
 
 app.post('/api/btn', (req, res)=> {
   state.touched = new Date().getTime();
+  console.log(req);
   res.send(200);
 });
 
