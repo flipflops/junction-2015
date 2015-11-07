@@ -4,7 +4,7 @@ import fs from 'fs';
 
 const AUTH_URL = 'https://cloud2.cozify.fi/cc/0.1/user/emaillogin';
 const REQUEST_AUTH_URL = 'https://cloud2.cozify.fi/cc/0.1/user/requestlogin';
-const COMMAND_URL = 'https://cloud2.cozify.fi/cc/0.1/hub/remote/cc/0.7/devices/command';
+const COMMAND_URL = 'http://172.16.10.156:8893/cc/0.7/devices/command';
 const TOKEN_FILE = '/tmp/token';
 
 const POWER_SOCKET_ID = '700e3cae-83d1-11e5-a7fc-544a1686317e';
@@ -73,6 +73,7 @@ export function requestAuth(email) {
 export function powerSocketPower(on) {
   return new Promise((resolve, reject) => {
     request.put(COMMAND_URL)
+      .set('Authorization', settings.AUTH_TOKEN)
       .send({ 
         id: POWER_SOCKET_ID,
         type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF')
@@ -84,6 +85,7 @@ export function powerSocketPower(on) {
 export function lightBulbPower(on) {
   return new Promise((resolve, reject) => {
     request.put(COMMAND_URL)
+      .set('Authorization', settings.AUTH_TOKEN)
       .send({
         id: LIGHT_BULB_ID,
         type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF')
@@ -95,6 +97,7 @@ export function lightBulbPower(on) {
 export function lightBulbColor(hue, saturation, brightness) {
     return new Promise((resolve, reject) => {
       request.put(COMMAND_URL)
+        .set('Authorization', settings.AUTH_TOKEN)
         .send({
           id: LIGHT_BULB_ID,
           type: 'CMD_DEVICE',
