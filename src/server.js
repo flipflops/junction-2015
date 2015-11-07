@@ -43,10 +43,10 @@ app.post('/api/btn', (req, res)=> {
 
   lightBulbPower(state.on).then(
     () => console.log('Switched light bulb'),
-    (err) => console.error('Error switching light bulb')
+    (err) => console.error('Error switching light bulb', err)
   );
 
-  res.send(200);
+  res.sendStatus(200);
 });
 
 const server = app.listen(process.env.PORT || 3000, ()=> {
