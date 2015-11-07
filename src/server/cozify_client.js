@@ -19,7 +19,7 @@ fs.exists(TOKEN_FILE, (exists) => {
         console.error(e);
       } else {
         settings.AUTH_TOKEN = data;
-        console.log("Read access token");
+        console.log("Read access token: " + settings.AUTH_TOKEN);
       }
     });
   }
@@ -27,9 +27,12 @@ fs.exists(TOKEN_FILE, (exists) => {
 
 function handleResponse(resolve, reject) {
   return (err, res) => {
-    if (err) {
+    if (err)
+    {
       reject(err)
-    } else {
+    }
+    else
+    {
       resolve(res);
     }
   }
@@ -74,7 +77,11 @@ export function requestAuth(email) {
 export function powerSocketPower(on) {
   return new Promise((resolve, reject) => {
     request.put(COMMAND_URL)
-      .set('Authorization', settings.AUTH_TOKEN)
+      .set('Authorization', "" + settings.AUTH_TOKEN)
+      .set('Host', '172.16.10.156:8893')
+      .set('Origin', 'http://cloud.cozify.fi:7400')
+      .set('Referer', 'http://cloud.cozify.fi:7400/')
+      .type('application/json')
       .send({ 
         id: POWER_SOCKET_ID,
         type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF')
@@ -85,8 +92,9 @@ export function powerSocketPower(on) {
 
 export function lightBulbPower(on) {
   return new Promise((resolve, reject) => {
+    console.log("" + settings.AUTH_TOKEN);
     request.put(COMMAND_URL)
-      .set('Authorization', settings.AUTH_TOKEN)
+      .set('Authorization', "" + settings.AUTH_TOKEN)
       .send({
         id: LIGHT_BULB_ID,
         type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF')
@@ -98,7 +106,6 @@ export function lightBulbPower(on) {
 export function lightBulbColor(hue, saturation, brightness) {
     return new Promise((resolve, reject) => {
       request.put(COMMAND_URL)
-        .set('Authorization', settings.AUTH_TOKEN)
         .send({
           id: LIGHT_BULB_ID,
           type: 'CMD_DEVICE',
@@ -118,6 +125,7 @@ export function lightBulbColor(hue, saturation, brightness) {
             type: 'STATE_LIGHT'
           }
         })
+        .set('Authorization', settings.AUTH_TOKEN)
         .end(handleResponse(resolve, reject));
     });
 }
