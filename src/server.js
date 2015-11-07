@@ -29,7 +29,7 @@ app.get('/api/auth/request', (req, res) => {
 });
 
 app.get('/api/btn', (req, res)=> {
-  res.send('touched: ' + state.touched)
+  res.send('touched: ' + state.touched);
 });
 
 app.post('/api/btn', (req, res)=> {

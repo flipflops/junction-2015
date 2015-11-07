@@ -12,7 +12,7 @@ const POWER_SOCKET_ID = '700e3cae-83d1-11e5-a7fc-544a1686317e';
 const settings = {};
 fs.exists(TOKEN_FILE, (err, exists) => {
   if (err) {
-    console.log("ERR");
+    console.error(err);
   }
   if (exists) {
     fs.readFile(TOKEN_FILE, (e, data) => {
