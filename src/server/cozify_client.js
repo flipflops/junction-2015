@@ -104,7 +104,7 @@ function lerp(v0, v1, t) {
 
 export function lightBulbPartyMode() {
   var totalTime = 5000;
-  var timeStep = 300;
+  var timeStep = 100;
   var stepIdx = 0;
 
   var interval = setInterval(function () {
