@@ -7,7 +7,7 @@ const app = express();
 const state = {};
 
 app.get('/', (req, res)=> {
-  res.send('Hello World!');
+  res.send('Welcome to trivialbuttons.com');
   console.log(req);
 });
 
@@ -29,16 +29,21 @@ app.get('/api/auth/request', (req, res) => {
 });
 
 app.get('/api/btn', (req, res)=> {
-  res.send('touched: ' + state.touched);
+  res.send('touched: ' + state.touched + ' state: ' + state.on);
 });
 
 app.post('/api/btn', (req, res)=> {
   state.touched = new Date().getTime();
-  state.powerSocket = !state.powerSocket;
+  state.on = !state.on;
 
-  powerSocket(state.powerSocket).then(
+  powerSocketPower(state.on).then(
     ()=> console.log('Switched power socket'),
     (err)=> console.error('Error switching power socket', err)
+  );
+
+  lightBulbPower(state.on).then(
+    () => console.log('Switched light bulb'),
+    (err) => console.error('Error switching light bulb')
   );
 
   res.send(200);
@@ -47,6 +52,19 @@ app.post('/api/btn', (req, res)=> {
 const server = app.listen(process.env.PORT || 3000, ()=> {
   const host = server.address().host;
   const port = server.address().port;
+
+  // Start with off state
+  state.on = false;
+  
+  powerSocketPower(false).then(
+    ()=> console.log('Switched power socket'),
+    (err)=> console.error('Error switching power socket', err)
+  );
+
+  lightBulbPower(false).then(
+    () => console.log('Switched light bulb'),
+    (err) => console.error('Error switching light bulb')
+  );
 
   console.log('App listening at http://%s:%s', host, port);
 });
