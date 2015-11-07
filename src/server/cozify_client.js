@@ -105,7 +105,7 @@ export function lightBulbColor(hue, saturation, brightness) {
           state:
           {
             brightness: brightness,
-            colorMode: "hs",
+            colorMode: 'hs',
             hue: hue,
             isOn: true,
             lastSeen: 1446902579825,
@@ -115,7 +115,7 @@ export function lightBulbColor(hue, saturation, brightness) {
             saturation: saturation,
             temperature: -1,
             transitionMsec: null,
-            type: "STATE_LIGHT"
+            type: 'STATE_LIGHT'
           }
         })
         .end(handleResponse(resolve, reject));
