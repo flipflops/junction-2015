@@ -5,6 +5,8 @@
       "script"      : "dist/server.js",
       "watch"       : true,
       "ignore_watch": [
+        ".git",
+        "node_modules",
         "uploads",
         "ffmpeg-output"
       ],
