@@ -81,6 +81,7 @@ function issueCommand(data) {
     request.put(COMMAND_URL)
       .set('Authorization', settings.AUTH_TOKEN)
       .set('Content-Type', 'application/json; charset=UTF-8')
+      .set('Connection', 'close')
       .send(data)
       .end(handleResponse(resolve, reject));
   });
@@ -115,7 +116,7 @@ export function lightBulbPartyMode() {
 
     lightBulbColor(lerp(0.0, 1.0, (stepIdx * timeStep) / totalTime), 1.0, 1.0).then(
       ()=> stepIdx++,
-      (err)=> stepIdx++ 
+      (err)=> stepIdx++
     );
   }, timeStep);
 }
