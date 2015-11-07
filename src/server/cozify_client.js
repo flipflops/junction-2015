@@ -113,7 +113,7 @@ export function lightBulbPartyMode() {
       clearInterval(interval);
     }
 
-    lightBulbColor(lerp(0.0, 1.0, (stepIdx * timeStep) / totalTime)).then(
+    lightBulbColor(lerp(0.0, 1.0, (stepIdx * timeStep) / totalTime), 1.0, 1.0).then(
       ()=> stepIdx++,
       (err)=> stepIdx++ 
     );
