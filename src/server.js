@@ -1,6 +1,6 @@
 /* eslint no-console: 0*/
 import express from 'express';
-import { auth, requestAuth } from './server/cozify_client';
+import { auth, requestAuth, powerSocket } from './server/cozify_client';
 
 const app = express();
 
@@ -28,10 +28,19 @@ app.get('/api/auth/request', (req, res) => {
     );
 });
 
-app.get('/api/btn', (req, res)=> res.send('touched: ' + state.touched));
+app.get('/api/btn', (req, res)=> {
+  res.send('touched: ' + state.touched)
+});
 
 app.post('/api/btn', (req, res)=> {
   state.touched = new Date().getTime();
+  state.powerSocket = !state.powerSocket;
+
+  powerSocket(state.powerSocket).then(
+    ()=> console.log('Switched power socket'),
+    (err)=> console.error('Error switching power socket', err)
+  );
+
   res.send(200);
 });
 
