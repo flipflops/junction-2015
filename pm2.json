@@ -1,0 +1,17 @@
+{
+  "apps" : [
+    {
+      "name"        : "server",
+      "script"      : "dist/server.js",
+      "watch"       : true,
+      "ignore_watch": [
+        "uploads",
+        "ffmpeg-output"
+      ],
+      "merge_logs"  : true,
+      "env": {
+          "NODE_ENV": "development"
+      }
+    }
+  ]
+}

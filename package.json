@@ -8,8 +8,8 @@
     "babel-compile": "$(npm bin)/babel src --out-dir dist",
     "babel-compile-watch": "npm run-script babel-compile -- --watch",
     "build": "npm run-script babel-compile && npm run-script webpack-compile",
-    "start": "NODE_ENV=development $(npm bin)/pm2-dev start dist/server.js",
-    "start-prod": "NODE_ENV=production $(npm bin)/pm2 start dist/server.js",
+    "start": "NODE_ENV=development $(npm bin)/pm2-dev start pm2.json",
+    "start-prod": "NODE_ENV=production $(npm bin)/pm2 start pm2.json",
     "postinstall": "build"
   },
   "repository": {
