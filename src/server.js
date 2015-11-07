@@ -25,6 +25,10 @@ app.get('/api/auth', (req, res) => {
     );
 });
 
+app.get('/api/state', (req, res) => {
+  res.send({ on: state.on });
+});
+
 app.get('/api/auth/request', (req, res) => {
   requestAuth(req.query.email)
     .then(
