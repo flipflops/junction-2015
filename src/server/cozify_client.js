@@ -81,7 +81,7 @@ function issueCommand(data) {
     request.put(COMMAND_URL)
       .set('Authorization', settings.AUTH_TOKEN)
       .set('Content-Type', 'application/json; charset=UTF-8')
-      .set('Connection', 'close')
+      .set('Connection', 'persistent')
       .send(data)
       .end(handleResponse(resolve, reject));
   });
