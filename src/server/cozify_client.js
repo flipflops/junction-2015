@@ -7,13 +7,19 @@ const REQUEST_AUTH_URL = 'https://cloud2.cozify.fi/cc/0.1/user/requestlogin';
 const TOKEN_FILE = '/tmp/token';
 
 const settings = {};
-
-fs.readFile(TOKEN_FILE, (e, data) => {
-  if (e) {
-    console.error(e);
-  } else {
-    settings.AUTH_TOKEN = data;
-    console.log("Read access token");
+fs.exists(TOKEN_FILE, (err, exists) => {
+  if (err) {
+    console.log("ERR");
+  }
+  if (exists) {
+    fs.readFile(TOKEN_FILE, (e, data) => {
+      if (e) {
+        console.error(e);
+      } else {
+        settings.AUTH_TOKEN = data;
+        console.log("Read access token");
+      }
+    });
   }
 });
 
