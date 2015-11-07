@@ -9,7 +9,19 @@ import fs from 'fs';
 const app = express();
 const state = {};
 
+app.use(express.static('public'));
 
+// Create directories for uploads and ffmpeg output
+function mkdirSync(path) {
+  try {
+    fs.mkdirSync(path);
+  } catch(e) {
+    if ( e.code != 'EEXIST' ) throw e;
+  }
+}
+
+mkdirSync(path.join(process.env.PWD, 'ffmpeg-output'));
+mkdirSync(path.join(process.env.PWD, 'uploads'));
 
 app.get('/', (req, res)=> {
   res.send('Welcome to trivialbuttons.com');
