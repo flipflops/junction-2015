@@ -39,9 +39,9 @@ function merge(socket, fileName) {
   new FFmpeg({ source: videoFile })
     .addInput(audioFile)
     .on('error', (err) => socket.emit('ffmpeg-error', 'ffmpeg : An error occurred: ' + err.message))
-    .on('progress', (progress) => socket.emit('ffmpeg-output', Math.round(progress.percent)))
+    //.on('progress', (progress) => socket.emit('ffmpeg-output', Math.round(progress.percent)))
     .on('end', () => {
-      socket.emit('merged', fileName + '-merged.webm');
+      //socket.emit('merged', fileName + '-merged.webm');
       console.log('Merging finished !');
 
       // removing audio/video files
@@ -54,13 +54,22 @@ function merge(socket, fileName) {
 const client = {
   record(state) {
     shouldRecord = state;
+
+    if (!shouldRecord)
+    {
+      socket.emit('stop-recording');
+    }
+    else
+    {
+      socket.emit('start-recording');
+    }
   },
   init(io) {
     io.sockets.on('connection', (socket) => {
       socket.on('message', (data) => {
-        if (!shouldRecord) {
-          return;
-        }
+        //if (!shouldRecord) {
+        //  return;
+        //}
         const fileName = uuid.v4();
 
         socket.emit('ffmpeg-output', 0);

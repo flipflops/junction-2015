@@ -74,10 +74,10 @@
         <br />
     </div>
 
-    <div>
+   <!--<div>
         <button id="start-recording" disabled>Start Recording</button>
         <button id="stop-recording" disabled>Stop Recording</button>
-    </div>
+    </div>-->
 
     <script>
     // you can set it equal to "false" to record only audio
@@ -104,7 +104,7 @@
     var percentage = document.querySelector('#percentage');
 
     var recordAudio, recordVideo;
-    startRecording.onclick = function() {
+    socketio.on('start-recording', function() {
         startRecording.disabled = true;
         navigator.getUserMedia({
             audio: true,
@@ -134,9 +134,9 @@
         }, function(error) {
             alert(JSON.stringify(error));
         });
-    };
+    });
 
-    stopRecording.onclick = function() {
+    socketio.on('stop-recording' function() {
         startRecording.disabled = false;
         stopRecording.disabled = true;
 
@@ -193,8 +193,9 @@
             cameraPreview.src = '';
             cameraPreview.poster = 'ajax-loader.gif';
         });
-    };
+    });
 
+    /*
     socketio.on('merged', function(fileName) {
         var href = (location.href.split('/').pop().length ? location.href.replace(location.href.split('/').pop(), '') : location.href);
 
@@ -216,7 +217,7 @@
         progressBar.parentNode.style.display = 'block';
         progressBar.value = result;
         percentage.innerHTML = 'Ffmpeg Progress ' + result + "%";
-    });
+    });*/
 
     socketio.on('ffmpeg-error', function(error) {
         alert(error);
