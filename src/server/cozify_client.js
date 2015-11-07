@@ -10,10 +10,7 @@ const TOKEN_FILE = '/tmp/token';
 const POWER_SOCKET_ID = '700e3cae-83d1-11e5-a7fc-544a1686317e';
 
 const settings = {};
-fs.exists(TOKEN_FILE, (err, exists) => {
-  if (err) {
-    console.error(err);
-  }
+fs.exists(TOKEN_FILE, (exists) => {
   if (exists) {
     fs.readFile(TOKEN_FILE, (e, data) => {
       if (e) {
