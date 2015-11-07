@@ -1,10 +1,15 @@
 /* eslint no-console: 0*/
 import express from 'express';
+import path from 'path';
 import { auth, requestAuth, powerSocketPower, lightBulbPower, lightBulbColor } from './server/cozify_client';
+import webrtc from './server/webrtc_recorder';
+import socketIo from 'socket.io';
+import fs from 'fs';
 
 const app = express();
-
 const state = {};
+
+
 
 app.get('/', (req, res)=> {
   res.send('Welcome to trivialbuttons.com');
@@ -36,6 +41,8 @@ app.post('/api/btn', (req, res)=> {
   state.touched = new Date().getTime();
   state.on = !state.on;
 
+  webrtc.record(!state.on);
+
   powerSocketPower(state.on).then(
     ()=> console.log('Switched power socket'),
     (err)=> console.error('Error switching power socket: ' + err)
@@ -54,6 +61,19 @@ app.post('/api/btn', (req, res)=> {
   res.sendStatus(200);
 });
 
+app.get('/video/:path', (req, res) => {
+  const filename = path.join(process.env.PWD, req.params.path);
+
+  path.exists(filename, (exists) => {
+    if (exists) {
+      res.writeHead(200);
+      fs.createReadStream(filename).pipe(res);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
 const server = app.listen(process.env.PORT || 3000, ()=> {
   const host = server.address().host;
   const port = server.address().port;
@@ -63,6 +83,11 @@ const server = app.listen(process.env.PORT || 3000, ()=> {
 
   console.log('App listening at http://%s:%s', host, port);
 });
+
+const io = socketIo.listen(server);
+
+console.log(webrtc);
+webrtc.init(io);
 
 export {
   app,
