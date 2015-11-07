@@ -76,14 +76,18 @@ export function requestAuth(email) {
   });
 }
 
-function powerCommand(id, on) {
+function issueCommand(data) {
   return new Promise((resolve, reject) => {
     request.put(COMMAND_URL)
       .set('Authorization', settings.AUTH_TOKEN)
       .set('Content-Type', 'application/json; charset=UTF-8')
-      .send([ { id, type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF') } ])
+      .send(data)
       .end(handleResponse(resolve, reject));
   });
+}
+
+function powerCommand(id, on) {
+  return issueCommand([ { id, type: (on ? 'CMD_DEVICE_ON' : 'CMD_DEVICE_OFF') } ]);
 }
 
 export function powerSocketPower(on) {
@@ -95,28 +99,23 @@ export function lightBulbPower(on) {
 }
 
 export function lightBulbColor(hue, saturation, brightness) {
-  return new Promise((resolve, reject) => {
-    request.put(COMMAND_URL)
-      .set('Authorization', settings.AUTH_TOKEN)
-      .send({
-        id: LIGHT_BULB_ID,
-        type: 'CMD_DEVICE',
-        state:
-        {
-          brightness: brightness,
-          colorMode: 'hs',
-          hue: hue,
-          isOn: true,
-          lastSeen: 1446902579825,
-          maxTemperature: 6622.516556291391,
-          minTemperature: 2000,
-          reachable: true,
-          saturation: saturation,
-          temperature: -1,
-          transitionMsec: null,
-          type: 'STATE_LIGHT'
-        }
-      })
-      .end(handleResponse(resolve, reject));
-  });
+  return issueCommand([{
+            id: LIGHT_BULB_ID,
+            type: 'CMD_DEVICE',
+            state:
+            {
+              brightness: brightness,
+              colorMode: 'hs',
+              hue: hue,
+              isOn: true,
+              lastSeen: (new Date()).getTime(),
+              maxTemperature: 6622.516556291391,
+              minTemperature: 2000,
+              reachable: true,
+              saturation: saturation,
+              temperature: -1,
+              transitionMsec: null,
+              type: 'STATE_LIGHT'
+            }
+          }]);
 }
