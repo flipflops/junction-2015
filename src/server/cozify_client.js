@@ -11,6 +11,7 @@ const POWER_SOCKET_ID = '700e3cae-83d1-11e5-a7fc-544a1686317e';
 const LIGHT_BULB_ID = '3a689bf6-84d3-11e5-b548-544a1686317e';
 
 const settings = {};
+
 fs.exists(TOKEN_FILE, (exists) => {
   if (exists) {
     fs.readFile(TOKEN_FILE, (e, data) => {
