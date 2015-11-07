@@ -1,6 +1,6 @@
 /* eslint no-console: 0*/
 import express from 'express';
-import { auth, requestAuth, powerSocket } from './server/cozify_client';
+import { auth, requestAuth, powerSocketPower, lightBulbPower, lightBulbColor } from './server/cozify_client';
 
 const app = express();
 
