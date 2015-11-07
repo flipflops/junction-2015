@@ -55,16 +55,6 @@ const server = app.listen(process.env.PORT || 3000, ()=> {
 
   // Start with off state
   state.on = false;
-  
-  powerSocketPower(false).then(
-    ()=> console.log('Switched power socket'),
-    (err)=> console.error('Error switching power socket', err)
-  );
-
-  lightBulbPower(false).then(
-    () => console.log('Switched light bulb'),
-    (err) => console.error('Error switching light bulb')
-  );
 
   console.log('App listening at http://%s:%s', host, port);
 });
