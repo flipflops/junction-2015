@@ -53,7 +53,9 @@
     "webpack": "^1.12.3"
   },
   "dependencies": {
+    "es6-promise": "^3.0.2",
     "express": "^4.13.3",
-    "pm2": "^0.15.10"
+    "pm2": "^0.15.10",
+    "superagent": "^1.4.0"
   }
 }

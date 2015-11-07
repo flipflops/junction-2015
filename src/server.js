@@ -1,17 +1,37 @@
 /* eslint no-console: 0*/
 import express from 'express';
+import { auth, requestAuth } from './server/cozify_client';
 
 const app = express();
 
 const state = {};
 
-app.get('/', (req, res)=> res.send('Hello World!'));
+app.get('/', (req, res)=> {
+  res.send('Hello World!');
+  console.log(req);
+});
+
+// GET for easier debug
+app.get('/api/auth', (req, res) => {
+  auth(req.query.email, req.query.password)
+    .then(
+      () => res.send(200),
+      ()=> res.send(401)
+    );
+});
+
+app.get('/api/auth/request', (req, res) => {
+  requestAuth(req.query.email)
+    .then(
+      () => res.send(200),
+      ()=> res.send(401)
+    );
+});
 
 app.get('/api/btn', (req, res)=> res.send('touched: ' + state.touched));
 
 app.post('/api/btn', (req, res)=> {
   state.touched = new Date().getTime();
-  console.log(req);
   res.send(200);
 });
 
