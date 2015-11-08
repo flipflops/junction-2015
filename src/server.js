@@ -24,7 +24,7 @@ mkdirSync(path.join(process.env.PWD, 'ffmpeg-output'));
 mkdirSync(path.join(process.env.PWD, 'uploads'));
 
 app.get('/', (req, res)=> {
-  res.send('Welcome to trivialbuttons.com');
+  res.send('Welcome to tukkinne.eu');
   console.log(req);
 });
 
