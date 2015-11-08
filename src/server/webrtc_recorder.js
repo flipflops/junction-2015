@@ -13,7 +13,7 @@ import FFmpeg from 'fluent-ffmpeg';
 
 let shouldRecord = false;
 
-var keys = require('keys.js');
+var keys = require('./keys.js');
 
 let CLIENT_ID = keys.CLIENT_ID;
 let CLIENT_SECRET = keys.CLIENT_SECRET;
