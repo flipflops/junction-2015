@@ -85,8 +85,8 @@ function merge(socket, fileName) {
       fs.unlink(audioFile);
       fs.unlink(videoFile);
 
-      console.log('Uploading to youtube');
-      uploadToYoutube(fileName + '-merged', 'party video', mergedFile);
+      //console.log('Uploading to youtube');
+      //uploadToYoutube(fileName + '-merged', 'party video', mergedFile);
     })
     .saveToFile(mergedFile);
 }
