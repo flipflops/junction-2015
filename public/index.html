@@ -6,6 +6,9 @@
 
 // RecordRTC over 
 // Socket.io      - github.com/muaz-khan/WebRTC-Experiment/tree/master/RecordRTC/RecordRTC-over-Socketio
+//
+// Modified for uselessness by RöRökerho @ HackJunction 2015
+//
 -->
 
 <!DOCTYPE html>
@@ -62,10 +65,8 @@
 </head>
 
 <body>
-    <h1><a href="https://github.com/muaz-khan/WebRTC-Experiment/tree/master/RecordRTC">RecordRTC</a> <a href="https://github.com/muaz-khan/WebRTC-Experiment/tree/master/RecordRTC/RecordRTC-over-Socketio">over Socket.io</a>
-    </h1>
     <p>
-        <video id="camera-preview" style="border: 1px solid rgb(15, 158, 238); width: 94%;"></video>
+        <video id="camera-preview" style="border: 2px solid rgb(15, 158, 238); width: 94%;"></video>
     </p>
 
     <div style="display:none;">
@@ -73,11 +74,6 @@
         <progress id="progress-bar" value="0" max="100"></progress>
         <br />
     </div>
-
-   <!--<div>
-        <button id="start-recording" disabled>Start Recording</button>
-        <button id="stop-recording" disabled>Stop Recording</button>
-    </div>-->
 
     <script>
     // you can set it equal to "false" to record only audio
@@ -93,11 +89,9 @@
     var mediaStream = null;
 
     socketio.on('connect', function() {
-        //startRecording.disabled = false;
+        console.log('connect');
     });
 
-    //var startRecording = document.getElementById('start-recording');
-    //var stopRecording = document.getElementById('stop-recording');
     var cameraPreview = document.getElementById('camera-preview');
 
     var progressBar = document.querySelector('#progress-bar');
@@ -137,8 +131,6 @@
     });
 
     socketio.on('stop-recording', function() {
-        //startRecording.disabled = false;
-        //stopRecording.disabled = true;
 
         // stop audio recorder
         recordVideoSeparately && recordAudio.stopRecording(function() {
@@ -217,7 +209,8 @@
         progressBar.parentNode.style.display = 'block';
         progressBar.value = result;
         percentage.innerHTML = 'Ffmpeg Progress ' + result + "%";
-    });*/
+    });
+    */
 
     socketio.on('ffmpeg-error', function(error) {
         alert(error);
