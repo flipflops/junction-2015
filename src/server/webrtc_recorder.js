@@ -25,20 +25,28 @@ var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 function uploadToYoutube(title, desc, videoPath) {
   googleapis.discover('youtube', 'v3').execute(function(err, client) {
+
+    console.log('Creating metadata');
+
     var metadata = {
         snippet: { title: title, description: desc}, 
         status: { privacyStatus: 'private' }
     };
 
+    console.log('Creating client for youtube upload');
     client
         .youtube.videos.insert({ part: 'snippet, status'}, metadata)
         .withMedia('video/webm', fs.readFileSync(videoPath))
         .withAuthClient(googleOauth2Client)
         .execute(function(err, result) {
             if (err) {
-              console.log(err);
+              console.log('Youtube upload failed');
+              console.error(err);
             }
-            else console.log(JSON.stringify(result, null, '  '));
+            else {
+                console.log('Uploaded successfully');
+                console.log(JSON.stringify(result, null, '  '));
+            }
         });
   });
 }
@@ -77,6 +85,9 @@ function merge(socket, fileName) {
       // removing audio/video files
       fs.unlink(audioFile);
       fs.unlink(videoFile);
+
+      console.log('Uploading to youtube');
+      uploadToYoutube(fileName + '-merged', 'party video', mergedFile);
     })
     .saveToFile(mergedFile);
 }
