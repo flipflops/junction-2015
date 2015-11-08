@@ -57,7 +57,7 @@ app.post('/api/btn', (req, res)=> {
   state.touched = new Date().getTime();
   state.on = !state.on;
 
-  webrtc.record(!state.on);
+  webrtc.record(state.on);
 
   powerSocketPower(state.on).then(
     ()=> console.log('Switched power socket'),
