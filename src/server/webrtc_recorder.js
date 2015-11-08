@@ -13,6 +13,36 @@ import FFmpeg from 'fluent-ffmpeg';
 
 let shouldRecord = false;
 
+var keys = require('keys.js');
+
+let CLIENT_ID = keys.CLIENT_ID;
+let CLIENT_SECRET = keys.CLIENT_SECRET;
+let REDIRECT_URL = keys.REDIRECT_URL;
+
+var googleapis = require('googleapis');
+var OAuth2 = googleapis.auth.OAuth2;               
+var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+
+function uploadToYoutube(title, desc, videoPath) {
+  googleapis.discover('youtube', 'v3').execute(function(err, client) {
+    var metadata = {
+        snippet: { title: title, description: desc}, 
+        status: { privacyStatus: 'private' }
+    };
+
+    client
+        .youtube.videos.insert({ part: 'snippet, status'}, metadata)
+        .withMedia('video/webm', fs.readFileSync(videoPath))
+        .withAuthClient(googleOauth2Client)
+        .execute(function(err, result) {
+            if (err) {
+              console.log(err);
+            }
+            else console.log(JSON.stringify(result, null, '  '));
+        });
+  });
+}
+
 function writeToDisk(dataURL, fileName) {
   const fileExtension = fileName.split('.').pop();
   const fileRootNameWithBase = path.join(process.env.PWD, 'uploads', fileName);
