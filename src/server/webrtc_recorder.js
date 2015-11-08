@@ -24,7 +24,7 @@ var OAuth2 = googleapis.auth.OAuth2;
 var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 function uploadToYoutube(title, desc, videoPath) {
-  googleapis.youtube({version: 'v3', auth: googleOauth2Client}).execute(function(err, client) {
+  googleapis.youtube({version: 'v3', auth: oauth2Client}).execute(function(err, client) {
 
     console.log('Creating metadata');
 
